@@ -27,7 +27,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::addSphere()
 {
-    qInfo() << "Adding sphere";
     Sphere* sphere = scene->makeSphere();
     sphere->setScale(1);
     sphere->setPosition(QVector3D(0,0,0));
@@ -36,7 +35,7 @@ void MainWindow::addSphere()
 
 void MainWindow::removeSphere()
 {
-    qInfo() << "Removing sphere";
+    qDeleteAll(list->selectedItems());
 }
 
 void MainWindow::toggleBlobify()
