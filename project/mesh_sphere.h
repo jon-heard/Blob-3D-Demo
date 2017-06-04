@@ -17,7 +17,6 @@ public:
     void refreshTextDisplay();
 protected:
     void genMesh_Sphere();
-    static int instanceCount;
 private:
     static QOpenGLBuffer* sphereVbo;
     static QOpenGLVertexArrayObject* sphereVao;

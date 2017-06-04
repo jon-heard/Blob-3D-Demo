@@ -7,7 +7,8 @@
 
 using namespace std;
 
-Mesh::Mesh(QOpenGLShaderProgram* shader) : _scale(1)
+Mesh::Mesh(QOpenGLShaderProgram* shader) :
+    _scale(1), vbo(NULL), vao(NULL)
 {
     this->shader = shader;
 }
@@ -16,10 +17,12 @@ Mesh::~Mesh() {}
 
 void Mesh::draw()
 {
-    shader->setUniformValue("modelTransform", modelTransform);
-    vao->bind();
-    glDrawArrays(GL_TRIANGLES, 0, vertexCount);
-    vao->release();
+    if (vao != NULL) {
+        shader->setUniformValue("modelTransform", modelTransform);
+        vao->bind();
+        glDrawArrays(GL_TRIANGLES, 0, vertexCount);
+        vao->release();
+    }
 }
 
 void Mesh::setScale(float value)
@@ -75,16 +78,25 @@ void Mesh::genMesh(vector<QVector3D>** meshData)
         }
     }
 
+    qInfo() << "genMesh: " << shader << ", " << vertexCount;
+
     shader->bind();
 
     vbo = new QOpenGLBuffer();
-    vbo->create();
+    //vbo->create();
+    if(!vbo->create())
+    {
+        qInfo() << "VBO: here it is";
+    }
     vbo->bind();
     vbo->setUsagePattern(QOpenGLBuffer::StaticDraw);
     vbo->allocate(result, vertexCount * 6 * 4);
 
     vao = new QOpenGLVertexArrayObject();
-    vao->create();
+    if(!vao->create())
+    {
+        qInfo() << "VAO: here it is";
+    }
     vao->bind();
     shader->enableAttributeArray("position");
     shader->enableAttributeArray("normal");

@@ -12,11 +12,15 @@ class Mesh_Blob : public Mesh_MarchingCubes, public Mesh_MarchingCubesData
 public:
     Mesh_Blob(QOpenGLShaderProgram* shader);
     virtual ~Mesh_Blob();
+    QListWidget* list();
+    void setList(QListWidget* value);
     void genMesh_Blob();
     bool MarchingCubesPredicate(QVector3D position);
     BoundingBox getMarchingCubesBounds();
 protected:
-    QListWidget* list;
+    QListWidget* _list;
+
+    int sphereCount;
     Mesh_Sphere** spheres;
 };
 

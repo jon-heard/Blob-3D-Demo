@@ -10,11 +10,12 @@
 using namespace std;
 
 BlobScene::BlobScene(QWidget *parent)
-    : QOpenGLWidget(parent), sphere(NULL), _blobify(false), zoom(-5) {}
+    : QOpenGLWidget(parent),
+      _blobify(false), zoom(-5) {}
 
 BlobScene::~BlobScene()
 {
-    delete sphere;
+    delete blob;
     delete shader_basic;
 }
 
@@ -38,7 +39,7 @@ Mesh_Sphere* BlobScene::makeSphere()
 
 void BlobScene::updateBlob()
 {
-    blob->genMesh_Blob();
+    blob->setDirty(true);
 }
 
 bool BlobScene::blobify()
@@ -67,13 +68,23 @@ void BlobScene::initializeGL()
     shader_basic->link();
 
     shader_basic->bind();
-    sphere = new Mesh_Sphere(shader_basic);
     blob = new Mesh_Blob(shader_basic);
+    blob->setList(_list);
+    Mesh_Sphere* sphere = new Mesh_Sphere(shader_basic);
+    delete sphere;
     shader_basic->release();
 }
 
 void BlobScene::paintGL()
 {
+    if (blob->dirty())
+    {
+        blob->setDirty(false);
+        shader_basic->bind();
+        blob->genMesh_Blob();
+        shader_basic->release();
+    }
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     if (_list != NULL)
@@ -97,7 +108,7 @@ void BlobScene::paintGL()
 void BlobScene::resizeGL(int w, int h)
 {
     projectionTransform.setToIdentity();
-    projectionTransform.perspective(45, (float)w/h, 0.01f, 100.0f);
+    projectionTransform.perspective(45, (float)w/h, 0.001f, 1000.0f);
 }
 
 void BlobScene::mousePressEvent(QMouseEvent *event)
@@ -119,8 +130,7 @@ void BlobScene::mouseMoveEvent(QMouseEvent *event)
 void BlobScene::wheelEvent(QWheelEvent* event)
 {
     zoom += event->delta() / 120;
-    qInfo() << zoom;
-    if (zoom > 0) { zoom = 0; }
+    if (zoom > -2) { zoom = -2; }
     refreshSceneTransform();
 }
 

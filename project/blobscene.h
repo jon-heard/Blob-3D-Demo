@@ -43,7 +43,6 @@ private:
 
     // Meshes
     Mesh_Blob* blob;
-    Mesh_Sphere* sphere;
 
     // Shaders
     QOpenGLShaderProgram* shader_basic;

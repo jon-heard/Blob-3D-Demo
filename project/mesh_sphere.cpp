@@ -7,14 +7,13 @@
 
 using namespace std;
 
-int Mesh_Sphere::instanceCount = 0;
 QOpenGLBuffer* Mesh_Sphere::sphereVbo = NULL;
 QOpenGLVertexArrayObject* Mesh_Sphere::sphereVao = NULL;
 int Mesh_Sphere::sphereVertexCount = 0;
 
 Mesh_Sphere::Mesh_Sphere(QOpenGLShaderProgram* shader) : Mesh(shader)
 {
-    if (instanceCount == 0)
+    if (Mesh_Sphere::sphereVbo == 0)
     {
         genMesh_Sphere();
         Mesh_Sphere::sphereVbo = vbo;
@@ -25,21 +24,10 @@ Mesh_Sphere::Mesh_Sphere(QOpenGLShaderProgram* shader) : Mesh(shader)
         vao = Mesh_Sphere::sphereVao;
         vertexCount = Mesh_Sphere::sphereVertexCount;
     }
-    ++instanceCount;
     refreshTextDisplay();
 }
 
-Mesh_Sphere::~Mesh_Sphere()
-{
-    --instanceCount;
-    if (instanceCount == 0)
-    {
-        vbo->destroy();
-        vao->destroy();
-        delete vbo;
-        delete vao;
-    }
-}
+Mesh_Sphere::~Mesh_Sphere() {}
 
 void Mesh_Sphere::setScale(float value)
 {

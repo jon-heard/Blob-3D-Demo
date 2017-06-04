@@ -4,22 +4,40 @@
 #include <QListWidget>
 #include <QDebug>
 
-Mesh_Blob::Mesh_Blob(QOpenGLShaderProgram* shader) : Mesh_MarchingCubes(shader)
+Mesh_Blob::Mesh_Blob(QOpenGLShaderProgram* shader) :
+    Mesh_MarchingCubes(shader), _list(NULL)
 {
-    genMesh_Blob();
+    //genMesh_Blob();
+    genMesh_MarchingCubes(this);
 }
 
 Mesh_Blob::~Mesh_Blob() {}
 
+QListWidget* Mesh_Blob::list()
+{
+    return _list;
+}
+
+void Mesh_Blob::setList(QListWidget* value)
+{
+    _list = value;
+}
+
+
 void Mesh_Blob::genMesh_Blob()
 {
-//    spheres = new Mesh_Sphere*[list->count()];
-//    for (int i = 0; i < list->count(); ++i)
-//    {
-//        spheres[i] = (Mesh_Sphere*)list->item(i);
-//    }
-    genMesh_MarchingCubes(this);
-//    delete spheres;
+    if (_list != NULL && _list->count() > 0) {
+        sphereCount = _list->count();
+        spheres = new Mesh_Sphere*[sphereCount];
+        for (int i = 0; i < _list->count(); ++i)
+        {
+            spheres[i] = (Mesh_Sphere*)_list->item(i);
+        }
+        genMesh_MarchingCubes(this);
+        delete spheres;
+    } else {
+        genMesh_MarchingCubes(NULL);
+    }
 }
 
 bool Mesh_Blob::MarchingCubesPredicate(QVector3D position)
@@ -30,10 +48,12 @@ bool Mesh_Blob::MarchingCubesPredicate(QVector3D position)
 BoundingBox Mesh_Blob::getMarchingCubesBounds()
 {
     BoundingBox result;
-//    for (int i = 0; i < list->count(); ++i)
-//    {
-//        Mesh_Sphere* sphere = spheres[i];
-
-//    }
+    if (sphereCount > 0)
+    {
+        for (int i = 0; i < _list->count(); ++i)
+        {
+            Mesh_Sphere* sphere = spheres[i];
+        }
+    }
     return result;
 }
