@@ -14,10 +14,11 @@ MainWindow::MainWindow(QWidget *parent) :
     scene = this->findChild<BlobScene*>("scene");
     list = this->findChild<QListWidget*>("sphereList");
     scene->setList(list);
+    _toggleBlobify = this->findChild<QRadioButton*>("toggleBlobify");
 
     connect(this->findChild<QPushButton*>("addSphere"), SIGNAL (released()), this, SLOT (addSphere()));
     connect(this->findChild<QPushButton*>("removeSphere"), SIGNAL (released()), this, SLOT (removeSphere()));
-    connect(this->findChild<QRadioButton*>("toggleBlobify"), SIGNAL (released()), this, SLOT (toggleBlobify()));
+    connect(_toggleBlobify, SIGNAL (released()), this, SLOT (toggleBlobify()));
     connect(list, SIGNAL (doubleClicked(const QModelIndex&)), this, SLOT (modifySphere(const QModelIndex&)));
 }
 
@@ -32,18 +33,20 @@ void MainWindow::addSphere()
     sphere->setScale(1);
     sphere->setPosition(QVector3D(0,0,0));
     list->addItem(sphere);
+    scene->updateBlob();
     scene->repaint();
 }
 
 void MainWindow::removeSphere()
 {
     qDeleteAll(list->selectedItems());
+    scene->updateBlob();
     scene->repaint();
 }
 
 void MainWindow::toggleBlobify()
 {
-    qInfo() << "Toggling blobify";
+    scene->setBlobify(_toggleBlobify->isChecked());
 }
 
 void MainWindow::modifySphere(const QModelIndex &index)
@@ -57,5 +60,6 @@ void MainWindow::modifySphere(const QModelIndex &index)
         selected->setPosition(dlg.position());
         selected->setScale(dlg.scale());
     }
+    scene->updateBlob();
     scene->repaint();
 }

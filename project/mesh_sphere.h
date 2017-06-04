@@ -5,7 +5,7 @@
 #include <QListWidgetItem>
 #include <QString>
 
-const int SPHERE_DIVISION = 3;
+const int SPHERE_DIVISION = 4;
 
 class Mesh_Sphere : public Mesh, public QListWidgetItem
 {
@@ -16,7 +16,7 @@ public:
     virtual void setPosition(QVector3D value);
     void refreshTextDisplay();
 protected:
-    void genSphereMesh();
+    void genMesh_Sphere();
     static int instanceCount;
 private:
     static QOpenGLBuffer* sphereVbo;

@@ -7,8 +7,9 @@
 #include <vector>
 
 class QOpenGLShaderProgram;
-class Mesh_Sphere;
 class QListWidget;
+class Mesh_Sphere;
+class Mesh_Blob;
 
 class BlobScene : public QOpenGLWidget
 {
@@ -18,6 +19,9 @@ public:
     QListWidget* list();
     void setList(QListWidget* value);
     Mesh_Sphere* makeSphere();
+    void updateBlob();
+    bool blobify();
+    void setBlobify(bool value);
 protected:
     void initializeGL();
     void resizeGL(int w, int h);
@@ -25,18 +29,25 @@ protected:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
 private:
+    // Projection transform
     QMatrix4x4 projectionTransform;
 
+    // Scene transform
     QMatrix4x4 sceneTransform;
     QPoint rotation;
     QPoint previousRotation;
     QPoint previousPos;
 
-    int vertexCount;
+    // Meshes
+    Mesh_Blob* blob;
+    Mesh_Sphere* sphere;
+
+    // Shaders
     QOpenGLShaderProgram* shader_basic;
 
+    // UI
     QListWidget* _list;
-    Mesh_Sphere* sphere;
+    bool _blobify;
 };
 
 #endif // BLOBSCENE_H

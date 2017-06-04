@@ -16,7 +16,7 @@ Mesh_Sphere::Mesh_Sphere(QOpenGLShaderProgram* shader) : Mesh(shader)
 {
     if (instanceCount == 0)
     {
-        genSphereMesh();
+        genMesh_Sphere();
         Mesh_Sphere::sphereVbo = vbo;
         Mesh_Sphere::sphereVao = vao;
         Mesh_Sphere::sphereVertexCount = vertexCount;
@@ -59,7 +59,7 @@ void Mesh_Sphere::refreshTextDisplay()
     setText(display);
 }
 
-void Mesh_Sphere::genSphereMesh()
+void Mesh_Sphere::genMesh_Sphere()
 {
     // Setup initial icosphere (a cube)
     vector<QVector3D> positions({

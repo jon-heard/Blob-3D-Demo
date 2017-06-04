@@ -3,13 +3,14 @@
 #include <QMouseEvent>
 #include <QOpenGLShaderProgram>
 #include "mesh_sphere.h"
+#include "mesh_blob.h"
 #include <QDebug>
 #include <QListWidget>
 
 using namespace std;
 
 BlobScene::BlobScene(QWidget *parent)
-    : QOpenGLWidget(parent), sphere(NULL) {}
+    : QOpenGLWidget(parent), sphere(NULL), _blobify(false) {}
 
 BlobScene::~BlobScene()
 {
@@ -35,6 +36,22 @@ Mesh_Sphere* BlobScene::makeSphere()
     shader_basic->release();
 }
 
+void BlobScene::updateBlob()
+{
+    blob->genMesh_Blob();
+}
+
+bool BlobScene::blobify()
+{
+    return _blobify;
+}
+
+void BlobScene::setBlobify(bool value)
+{
+    _blobify = value;
+    repaint();
+}
+
 void BlobScene::initializeGL()
 {
     glClearColor(.25,.25,.25,1);
@@ -51,8 +68,7 @@ void BlobScene::initializeGL()
 
     shader_basic->bind();
     sphere = new Mesh_Sphere(shader_basic);
-    //delete sphere;
-    //sphere = NULL;
+    blob = new Mesh_Blob(shader_basic);
     shader_basic->release();
 }
 
@@ -65,9 +81,14 @@ void BlobScene::paintGL()
         shader_basic->bind();
         shader_basic->setUniformValue("projectionTransform", projectionTransform);
         shader_basic->setUniformValue("sceneTransform", sceneTransform);
-        for (int i = 0; i < _list->count(); ++i)
+        if (_blobify)
         {
-            ((Mesh_Sphere*)_list->item(i))->draw();
+            blob->draw();
+        } else {
+            for (int i = 0; i < _list->count(); ++i)
+            {
+                ((Mesh_Sphere*)_list->item(i))->draw();
+            }
         }
         shader_basic->release();
     }
