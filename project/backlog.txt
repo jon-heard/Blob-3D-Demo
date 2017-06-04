@@ -1,0 +1,4 @@
+
+make ui for adding spheres to the scene
+get marching cubes mesh working
+get spark working
