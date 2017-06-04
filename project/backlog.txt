@@ -1,5 +1,4 @@
 
-use iterators wherever possible
 get marching cubes mesh working
 get voltage working
 add zoom with scrollwheel
