@@ -10,7 +10,7 @@
 using namespace std;
 
 BlobScene::BlobScene(QWidget *parent)
-    : QOpenGLWidget(parent), sphere(NULL), _blobify(false) {}
+    : QOpenGLWidget(parent), sphere(NULL), _blobify(false), zoom(-5) {}
 
 BlobScene::~BlobScene()
 {
@@ -112,10 +112,23 @@ void BlobScene::mouseMoveEvent(QMouseEvent *event)
     {
         rotation.setY(previousRotation.y() + (event->x() - previousPos.x()));
         rotation.setX(previousRotation.x() + (event->y() - previousPos.y()));
-        sceneTransform.setToIdentity();
-        sceneTransform.translate(0, 0, -5);
-        sceneTransform.rotate(rotation.x(), 1, 0, 0);
-        sceneTransform.rotate(rotation.y(), 0, 1, 0);
-        repaint();
+        refreshSceneTransform();
     }
+}
+
+void BlobScene::wheelEvent(QWheelEvent* event)
+{
+    zoom += event->delta() / 120;
+    qInfo() << zoom;
+    if (zoom > 0) { zoom = 0; }
+    refreshSceneTransform();
+}
+
+void BlobScene::refreshSceneTransform()
+{
+    sceneTransform.setToIdentity();
+    sceneTransform.translate(0, 0, zoom);
+    sceneTransform.rotate(rotation.x(), 1, 0, 0);
+    sceneTransform.rotate(rotation.y(), 0, 1, 0);
+    repaint();
 }

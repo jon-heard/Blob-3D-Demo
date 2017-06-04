@@ -26,14 +26,17 @@ protected:
     void initializeGL();
     void resizeGL(int w, int h);
     void paintGL();
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
+    void mousePressEvent(QMouseEvent* event);
+    void mouseMoveEvent(QMouseEvent* event);
+    void wheelEvent(QWheelEvent* event);
+    void refreshSceneTransform();
 private:
     // Projection transform
     QMatrix4x4 projectionTransform;
 
     // Scene transform
     QMatrix4x4 sceneTransform;
+    float zoom;
     QPoint rotation;
     QPoint previousRotation;
     QPoint previousPos;

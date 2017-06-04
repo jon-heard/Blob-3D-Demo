@@ -1,6 +1,5 @@
 
 get marching cubes mesh working
-add zoom with scrollwheel
 get voltage working
 
 --------
