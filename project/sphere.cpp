@@ -102,18 +102,12 @@ void Sphere::genSphereMesh()
     }
 
     // spherize
-    for (int i = 0; i < positions.size(); ++i)
+    for (vector<QVector3D>::iterator i = positions.begin();
+         i != positions.end(); ++i)
     {
-        positions[i].normalize();
+        (*i).normalize();
     }
 
-    // voltage data (single value for entire mesh)
-    vector<QVector3D> voltage;
-    for (int i = 0; i < positions.size(); ++i)
-    {
-        voltage.push_back(QVector3D(1,1,1));
-    }
-
-    vector<QVector3D>* meshData[] = {&positions, &tris, &voltage};
+    vector<QVector3D>* meshData[] = {&positions, &tris};
     genMesh(meshData);
 }
