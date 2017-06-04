@@ -22,6 +22,7 @@ void BlobScene::initializeGL()
 {
     glClearColor(.25,.25,.25,1);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
 
     shader_basic = new QOpenGLShaderProgram();
     shader_basic->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/vertex_basic.vert");

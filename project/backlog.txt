@@ -1,4 +1,5 @@
 
 make ui for adding spheres to the scene
 get marching cubes mesh working
-get spark working
+get voltage working
+add zoom with scrollwheel
