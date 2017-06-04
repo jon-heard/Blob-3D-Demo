@@ -18,6 +18,11 @@ BlobScene::~BlobScene()
     delete shader_basic;
 }
 
+Sphere* BlobScene::makeSphere()
+{
+    return new Sphere(shader_basic);
+}
+
 void BlobScene::initializeGL()
 {
     glClearColor(.25,.25,.25,1);

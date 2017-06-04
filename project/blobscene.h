@@ -14,6 +14,7 @@ class BlobScene : public QOpenGLWidget
 public:
     BlobScene(QWidget *parent = 0);
     ~BlobScene();
+    Sphere* makeSphere();
 protected:
     void initializeGL();
     void resizeGL(int w, int h);
@@ -22,12 +23,15 @@ protected:
     void mouseMoveEvent(QMouseEvent *event);
 private:
     QMatrix4x4 projectionTransform;
+
+    QMatrix4x4 sceneTransform;
     QPoint rotation;
     QPoint previousRotation;
     QPoint previousPos;
-    QMatrix4x4 sceneTransform;
+
     int vertexCount;
     QOpenGLShaderProgram* shader_basic;
+
     std::vector<Sphere*> spheres;
 };
 
