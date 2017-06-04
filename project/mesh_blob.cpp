@@ -3,6 +3,7 @@
 #include <QOpenGLShaderProgram>
 #include <QListWidget>
 #include <QDebug>
+#include <mesh_sphere.h>
 
 Mesh_Blob::Mesh_Blob(QOpenGLShaderProgram* shader) :
     Mesh_MarchingCubes(shader), _list(NULL)
@@ -40,12 +41,19 @@ void Mesh_Blob::genMesh_Blob()
     }
 }
 
-bool Mesh_Blob::MarchingCubesPredicate(QVector3D position)
+bool Mesh_Blob::MarchingCubes_getIsWithin(QVector3D position)
 {
-    return true;
+    for (int i = 0; i < sphereCount; ++i) {
+        QVector3D spherePosition = spheres[i]->position();
+        if ((spherePosition-position).length() < spheres[i]->scale())
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
-BoundingBox Mesh_Blob::getMarchingCubesBounds()
+BoundingBox Mesh_Blob::MarchingCubes_getBounds()
 {
     BoundingBox result;
     if (sphereCount > 0)
@@ -53,6 +61,32 @@ BoundingBox Mesh_Blob::getMarchingCubesBounds()
         for (int i = 0; i < _list->count(); ++i)
         {
             Mesh_Sphere* sphere = spheres[i];
+            float scale = sphere->scale();
+            if (sphere->position().x() - scale < result.low.x())
+            {
+                result.low.setX(sphere->position().x() - scale);
+            }
+            if (sphere->position().y() - scale < result.low.y())
+            {
+                result.low.setY(sphere->position().y() - scale);
+            }
+            if (sphere->position().z() - scale < result.low.z())
+            {
+                result.low.setZ(sphere->position().z() - scale);
+            }
+
+            if (sphere->position().x() + scale > result.high.x())
+            {
+                result.high.setX(sphere->position().x() + scale);
+            }
+            if (sphere->position().y() + scale > result.high.y())
+            {
+                result.high.setY(sphere->position().y() + scale);
+            }
+            if (sphere->position().z() + scale > result.high.z())
+            {
+                result.high.setZ(sphere->position().z() + scale);
+            }
         }
     }
     return result;

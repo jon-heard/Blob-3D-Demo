@@ -7,7 +7,7 @@ class QOpenGLShaderProgram;
 class QListWidget;
 class Mesh_Sphere;
 
-class Mesh_Blob : public Mesh_MarchingCubes, public Mesh_MarchingCubesData
+class Mesh_Blob : public Mesh_MarchingCubes, public Mesh_MarchingCubesParameters
 {
 public:
     Mesh_Blob(QOpenGLShaderProgram* shader);
@@ -15,8 +15,8 @@ public:
     QListWidget* list();
     void setList(QListWidget* value);
     void genMesh_Blob();
-    bool MarchingCubesPredicate(QVector3D position);
-    BoundingBox getMarchingCubesBounds();
+    bool MarchingCubes_getIsWithin(QVector3D position);
+    BoundingBox MarchingCubes_getBounds();
 protected:
     QListWidget* _list;
 
