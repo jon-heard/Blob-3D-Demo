@@ -29,16 +29,19 @@ SOURCES += \
         mainwindow.cpp \
     blobscene.cpp \
     mesh.cpp \
-    sphere.cpp
+    sphere.cpp \
+    editspheredialog.cpp
 
 HEADERS += \
         mainwindow.h \
     blobscene.h \
     mesh.h \
-    sphere.h
+    sphere.h \
+    editspheredialog.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    editspheredialog.ui
 
 DISTFILES += \
     backlog.txt

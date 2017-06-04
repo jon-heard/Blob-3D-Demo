@@ -6,5 +6,5 @@ out vec4 finalColor;
 
 void main()
 {
-   finalColor = vec4(1.0, 1.0, 1.0, 1.0) * passLightValue * passVoltage;
+   finalColor = vec4(1.0, 1.0, 1.0, 1.0) * passLightValue * .75 * passVoltage;
 }

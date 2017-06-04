@@ -16,9 +16,9 @@ public:
     virtual ~Mesh();
     void draw();
 
-    void setScale(float value);
+    virtual void setScale(float value);
     float scale();
-    void setPosition(QVector3D value);
+    virtual void setPosition(QVector3D value);
     QVector3D position();
 protected:
     void genMesh(std::vector<QVector3D>** meshData);
