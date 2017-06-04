@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     scene = this->findChild<BlobScene*>("scene");
     list = this->findChild<QListWidget*>("sphereList");
+    scene->setList(list);
 
     connect(this->findChild<QPushButton*>("addSphere"), SIGNAL (released()), this, SLOT (addSphere()));
     connect(this->findChild<QPushButton*>("removeSphere"), SIGNAL (released()), this, SLOT (removeSphere()));
@@ -31,11 +32,13 @@ void MainWindow::addSphere()
     sphere->setScale(1);
     sphere->setPosition(QVector3D(0,0,0));
     list->addItem(sphere);
+    scene->repaint();
 }
 
 void MainWindow::removeSphere()
 {
     qDeleteAll(list->selectedItems());
+    scene->repaint();
 }
 
 void MainWindow::toggleBlobify()
@@ -54,4 +57,5 @@ void MainWindow::modifySphere(const QModelIndex &index)
         selected->setPosition(dlg.position());
         selected->setScale(dlg.scale());
     }
+    scene->repaint();
 }

@@ -60,6 +60,12 @@
      <height>22</height>
     </rect>
    </property>
+   <property name="minimum">
+    <double>-100.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>100.000000000000000</double>
+   </property>
   </widget>
   <widget class="QDoubleSpinBox" name="ValueY">
    <property name="geometry">
@@ -69,6 +75,12 @@
      <width>62</width>
      <height>22</height>
     </rect>
+   </property>
+   <property name="minimum">
+    <double>-100.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>100.000000000000000</double>
    </property>
   </widget>
   <widget class="QLabel" name="LabelY">
@@ -93,6 +105,12 @@
      <height>22</height>
     </rect>
    </property>
+   <property name="minimum">
+    <double>-100.000000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>100.000000000000000</double>
+   </property>
   </widget>
   <widget class="QLabel" name="LabelZ">
    <property name="geometry">
@@ -115,6 +133,12 @@
      <width>62</width>
      <height>22</height>
     </rect>
+   </property>
+   <property name="minimum">
+    <double>0.100000000000000</double>
+   </property>
+   <property name="maximum">
+    <double>100.000000000000000</double>
    </property>
   </widget>
   <widget class="QLabel" name="LabelScale">

@@ -1,5 +1,11 @@
 
-make ui for adding spheres to the scene
+use iterators wherever possible
 get marching cubes mesh working
 get voltage working
 add zoom with scrollwheel
+
+--------
+ polish
+--------
+divorce shader from mesh
+figure out why a sphere needs to be manually created at load time to see any spheres

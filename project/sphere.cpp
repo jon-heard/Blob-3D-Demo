@@ -26,6 +26,7 @@ Sphere::Sphere(QOpenGLShaderProgram* shader) : Mesh(shader)
         vertexCount = Sphere::sphereVertexCount;
     }
     ++instanceCount;
+    qInfo() << ":" << instanceCount;
     refreshTextDisplay();
 }
 

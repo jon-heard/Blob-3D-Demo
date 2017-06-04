@@ -8,12 +8,15 @@
 
 class QOpenGLShaderProgram;
 class Sphere;
+class QListWidget;
 
 class BlobScene : public QOpenGLWidget
 {
 public:
     BlobScene(QWidget *parent = 0);
     ~BlobScene();
+    QListWidget* list();
+    void setList(QListWidget* value);
     Sphere* makeSphere();
 protected:
     void initializeGL();
@@ -32,7 +35,8 @@ private:
     int vertexCount;
     QOpenGLShaderProgram* shader_basic;
 
-    std::vector<Sphere*> spheres;
+    QListWidget* _list;
+    Sphere* sphere;
 };
 
 #endif // BLOBSCENE_H

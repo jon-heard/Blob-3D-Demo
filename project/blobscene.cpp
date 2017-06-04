@@ -4,23 +4,35 @@
 #include <QOpenGLShaderProgram>
 #include "Sphere.h"
 #include <QDebug>
+#include <QListWidget>
 
 using namespace std;
 
 BlobScene::BlobScene(QWidget *parent)
-    : QOpenGLWidget(parent) {}
+    : QOpenGLWidget(parent), sphere(NULL) {}
 
 BlobScene::~BlobScene()
 {
-    for (int i = 0; i < spheres.size(); ++i) {
-        delete spheres[i];
-    }
+    delete sphere;
     delete shader_basic;
 }
 
+QListWidget* BlobScene::list()
+{
+    return _list;
+}
+
+void BlobScene::setList(QListWidget* value)
+{
+    _list = value;
+}
+
+
 Sphere* BlobScene::makeSphere()
 {
+    shader_basic->bind();
     return new Sphere(shader_basic);
+    shader_basic->release();
 }
 
 void BlobScene::initializeGL()
@@ -29,49 +41,36 @@ void BlobScene::initializeGL()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
 
+    sceneTransform.setToIdentity();
+    sceneTransform.translate(0, 0, -5);
+
     shader_basic = new QOpenGLShaderProgram();
     shader_basic->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/vertex_basic.vert");
     shader_basic->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/frag_basic.frag");
     shader_basic->link();
 
-    Sphere* sphere;
-
+    shader_basic->bind();
     sphere = new Sphere(shader_basic);
-    spheres.push_back(sphere);
-    sphere->setScale(.5);
-    sphere->setPosition(QVector3D(0,1,0));
-
-    sphere = new Sphere(shader_basic);
-    spheres.push_back(sphere);
-    sphere->setScale(1);
-    sphere->setPosition(QVector3D(0,-1,0));
-
-    sphere = new Sphere(shader_basic);
-    spheres.push_back(sphere);
-    sphere->setScale(1);
-    sphere->setPosition(QVector3D(1,0,0));
-
-    sphere = new Sphere(shader_basic);
-    spheres.push_back(sphere);
-    sphere->setScale(1);
-    sphere->setPosition(QVector3D(-1,0,0));
-
-    sceneTransform.setToIdentity();
-    sceneTransform.translate(0, 0, -5);
+    //delete sphere;
+    //sphere = NULL;
+    shader_basic->release();
 }
 
 void BlobScene::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    shader_basic->bind();
-    shader_basic->setUniformValue("projectionTransform", projectionTransform);
-    shader_basic->setUniformValue("sceneTransform", sceneTransform);
-    for (int i = 0; i < spheres.size(); ++i)
+    if (_list != NULL)
     {
-        spheres[i]->draw();
+        shader_basic->bind();
+        shader_basic->setUniformValue("projectionTransform", projectionTransform);
+        shader_basic->setUniformValue("sceneTransform", sceneTransform);
+        for (int i = 0; i < _list->count(); ++i)
+        {
+            ((Sphere*)_list->item(i))->draw();
+        }
+        shader_basic->release();
     }
-    shader_basic->release();
 }
 
 void BlobScene::resizeGL(int w, int h)
