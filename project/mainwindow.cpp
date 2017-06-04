@@ -2,7 +2,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
-#include "Sphere.h"
+#include "mesh_sphere.h"
 #include "editspheredialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -28,7 +28,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::addSphere()
 {
-    Sphere* sphere = scene->makeSphere();
+    Mesh_Sphere* sphere = scene->makeSphere();
     sphere->setScale(1);
     sphere->setPosition(QVector3D(0,0,0));
     list->addItem(sphere);
@@ -48,7 +48,7 @@ void MainWindow::toggleBlobify()
 
 void MainWindow::modifySphere(const QModelIndex &index)
 {
-    Sphere* selected = (Sphere*)list->selectedItems()[0];
+    Mesh_Sphere* selected = (Mesh_Sphere*)list->selectedItems()[0];
     QVector3D position = selected->position();
     float scale = selected->scale();
     EditSphereDialog dlg(this, position, scale);

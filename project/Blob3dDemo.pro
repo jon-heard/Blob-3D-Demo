@@ -29,15 +29,19 @@ SOURCES += \
         mainwindow.cpp \
     blobscene.cpp \
     mesh.cpp \
-    sphere.cpp \
-    editspheredialog.cpp
+    editspheredialog.cpp \
+    mesh_blob.cpp \
+    mesh_marchingcubes.cpp \
+    mesh_sphere.cpp
 
 HEADERS += \
         mainwindow.h \
     blobscene.h \
     mesh.h \
-    sphere.h \
-    editspheredialog.h
+    editspheredialog.h \
+    mesh_blob.h \
+    mesh_marchingcubes.h \
+    mesh_sphere.h
 
 FORMS += \
         mainwindow.ui \

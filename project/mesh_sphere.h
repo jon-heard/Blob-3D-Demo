@@ -1,5 +1,5 @@
-#ifndef SPHERE_H
-#define SPHERE_H
+#ifndef MESH_SPHERE_H
+#define MESH_SPHERE_H
 
 #include "mesh.h"
 #include <QListWidgetItem>
@@ -7,11 +7,11 @@
 
 const int SPHERE_DIVISION = 3;
 
-class Sphere : public Mesh, public QListWidgetItem
+class Mesh_Sphere : public Mesh, public QListWidgetItem
 {
 public:
-    Sphere(QOpenGLShaderProgram* shader);
-    virtual ~Sphere();
+    Mesh_Sphere(QOpenGLShaderProgram* shader);
+    virtual ~Mesh_Sphere();
     virtual void setScale(float value);
     virtual void setPosition(QVector3D value);
     void refreshTextDisplay();
@@ -24,4 +24,4 @@ private:
     static int sphereVertexCount;
 };
 
-#endif // SPHERE_H
+#endif // MESH_SPHERE_H

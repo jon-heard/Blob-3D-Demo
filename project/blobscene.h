@@ -7,7 +7,7 @@
 #include <vector>
 
 class QOpenGLShaderProgram;
-class Sphere;
+class Mesh_Sphere;
 class QListWidget;
 
 class BlobScene : public QOpenGLWidget
@@ -17,7 +17,7 @@ public:
     ~BlobScene();
     QListWidget* list();
     void setList(QListWidget* value);
-    Sphere* makeSphere();
+    Mesh_Sphere* makeSphere();
 protected:
     void initializeGL();
     void resizeGL(int w, int h);
@@ -36,7 +36,7 @@ private:
     QOpenGLShaderProgram* shader_basic;
 
     QListWidget* _list;
-    Sphere* sphere;
+    Mesh_Sphere* sphere;
 };
 
 #endif // BLOBSCENE_H

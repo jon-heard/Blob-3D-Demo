@@ -1,5 +1,5 @@
 
-#include "sphere.h"
+#include "mesh_sphere.h"
 #include <QOpenGLShaderProgram>
 #include <QOpenGLBuffer>
 #include <QOpenGLVertexArrayObject>
@@ -7,30 +7,29 @@
 
 using namespace std;
 
-int Sphere::instanceCount = 0;
-QOpenGLBuffer* Sphere::sphereVbo = NULL;
-QOpenGLVertexArrayObject* Sphere::sphereVao = NULL;
-int Sphere::sphereVertexCount = 0;
+int Mesh_Sphere::instanceCount = 0;
+QOpenGLBuffer* Mesh_Sphere::sphereVbo = NULL;
+QOpenGLVertexArrayObject* Mesh_Sphere::sphereVao = NULL;
+int Mesh_Sphere::sphereVertexCount = 0;
 
-Sphere::Sphere(QOpenGLShaderProgram* shader) : Mesh(shader)
+Mesh_Sphere::Mesh_Sphere(QOpenGLShaderProgram* shader) : Mesh(shader)
 {
     if (instanceCount == 0)
     {
         genSphereMesh();
-        Sphere::sphereVbo = vbo;
-        Sphere::sphereVao = vao;
-        Sphere::sphereVertexCount = vertexCount;
+        Mesh_Sphere::sphereVbo = vbo;
+        Mesh_Sphere::sphereVao = vao;
+        Mesh_Sphere::sphereVertexCount = vertexCount;
     } else {
-        vbo = Sphere::sphereVbo;
-        vao = Sphere::sphereVao;
-        vertexCount = Sphere::sphereVertexCount;
+        vbo = Mesh_Sphere::sphereVbo;
+        vao = Mesh_Sphere::sphereVao;
+        vertexCount = Mesh_Sphere::sphereVertexCount;
     }
     ++instanceCount;
-    qInfo() << ":" << instanceCount;
     refreshTextDisplay();
 }
 
-Sphere::~Sphere()
+Mesh_Sphere::~Mesh_Sphere()
 {
     --instanceCount;
     if (instanceCount == 0)
@@ -42,25 +41,25 @@ Sphere::~Sphere()
     }
 }
 
-void Sphere::setScale(float value)
+void Mesh_Sphere::setScale(float value)
 {
     Mesh::setScale(value);
     refreshTextDisplay();
 }
 
-void Sphere::setPosition(QVector3D value)
+void Mesh_Sphere::setPosition(QVector3D value)
 {
     Mesh::setPosition(value);
     refreshTextDisplay();
 }
 
-void Sphere::refreshTextDisplay()
+void Mesh_Sphere::refreshTextDisplay()
 {
     QString display = QString("[(%1, %2, %3), %4]").arg(_position.x()).arg(_position.y()).arg(_position.z()).arg(_scale);
     setText(display);
 }
 
-void Sphere::genSphereMesh()
+void Mesh_Sphere::genSphereMesh()
 {
     // Setup initial icosphere (a cube)
     vector<QVector3D> positions({

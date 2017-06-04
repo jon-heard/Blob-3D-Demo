@@ -2,7 +2,7 @@
 #include "BlobScene.h"
 #include <QMouseEvent>
 #include <QOpenGLShaderProgram>
-#include "Sphere.h"
+#include "mesh_sphere.h"
 #include <QDebug>
 #include <QListWidget>
 
@@ -28,10 +28,10 @@ void BlobScene::setList(QListWidget* value)
 }
 
 
-Sphere* BlobScene::makeSphere()
+Mesh_Sphere* BlobScene::makeSphere()
 {
     shader_basic->bind();
-    return new Sphere(shader_basic);
+    return new Mesh_Sphere(shader_basic);
     shader_basic->release();
 }
 
@@ -50,7 +50,7 @@ void BlobScene::initializeGL()
     shader_basic->link();
 
     shader_basic->bind();
-    sphere = new Sphere(shader_basic);
+    sphere = new Mesh_Sphere(shader_basic);
     //delete sphere;
     //sphere = NULL;
     shader_basic->release();
@@ -67,7 +67,7 @@ void BlobScene::paintGL()
         shader_basic->setUniformValue("sceneTransform", sceneTransform);
         for (int i = 0; i < _list->count(); ++i)
         {
-            ((Sphere*)_list->item(i))->draw();
+            ((Mesh_Sphere*)_list->item(i))->draw();
         }
         shader_basic->release();
     }
