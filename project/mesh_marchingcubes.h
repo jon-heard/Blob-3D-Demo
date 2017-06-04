@@ -4,13 +4,21 @@
 #include "Mesh.h"
 #include <QVector3D>
 
-const int MARCHING_CUBE_SIZE = 1;
+const float MARCHING_CUBE_SIZE = .125;
 
 class QOpenGLShaderProgram;
+
+class BoundingBox
+{
+public:
+    QVector3D corner1;
+    QVector3D corner2;
+};
 
 class Mesh_MarchingCubesData
 {
     virtual bool MarchingCubesPredicate(QVector3D position) = 0;
+    virtual BoundingBox getMarchingCubesBounds() = 0;
 };
 
 class Mesh_MarchingCubes : public Mesh

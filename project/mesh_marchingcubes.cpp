@@ -15,14 +15,14 @@ Mesh_MarchingCubes::~Mesh_MarchingCubes() {}
 void Mesh_MarchingCubes::genMesh_MarchingCubes(Mesh_MarchingCubesData* predicate)
 {
     vector<QVector3D> positions({
-                                    {-.5, -.5, -.5},
-                                    {.5, -.5, -.5},
-                                    {-.5, -.5, .5},
-                                    {.5, -.5, .5},
-                                    {-.5, .5, -.5},
-                                    {.5, .5, -.5},
-                                    {-.5, .5, .5},
-                                    {.5, .5, .5}
+                                    {-MARCHING_CUBE_SIZE, -MARCHING_CUBE_SIZE, -MARCHING_CUBE_SIZE},
+                                    {MARCHING_CUBE_SIZE, -MARCHING_CUBE_SIZE, -MARCHING_CUBE_SIZE},
+                                    {-MARCHING_CUBE_SIZE, -MARCHING_CUBE_SIZE, MARCHING_CUBE_SIZE},
+                                    {MARCHING_CUBE_SIZE, -MARCHING_CUBE_SIZE, MARCHING_CUBE_SIZE},
+                                    {-MARCHING_CUBE_SIZE, MARCHING_CUBE_SIZE, -MARCHING_CUBE_SIZE},
+                                    {MARCHING_CUBE_SIZE, MARCHING_CUBE_SIZE, -MARCHING_CUBE_SIZE},
+                                    {-MARCHING_CUBE_SIZE, MARCHING_CUBE_SIZE, MARCHING_CUBE_SIZE},
+                                    {MARCHING_CUBE_SIZE, MARCHING_CUBE_SIZE, MARCHING_CUBE_SIZE}
                                 });
     vector<QVector3D> tris({
                                {0, 1, 2}, {3, 2, 1}, // y-neg
