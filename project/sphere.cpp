@@ -26,6 +26,7 @@ Sphere::Sphere(QOpenGLShaderProgram* shader) : Mesh(shader)
         vertexCount = Sphere::sphereVertexCount;
     }
     ++instanceCount;
+    refreshTextDisplay();
 }
 
 Sphere::~Sphere()
@@ -38,6 +39,24 @@ Sphere::~Sphere()
         delete vbo;
         delete vao;
     }
+}
+
+void Sphere::setScale(float value)
+{
+    Mesh::setScale(value);
+    refreshTextDisplay();
+}
+
+void Sphere::setPosition(QVector3D value)
+{
+    Mesh::setPosition(value);
+    refreshTextDisplay();
+}
+
+void Sphere::refreshTextDisplay()
+{
+    QString display = QString("[(%1, %2, %3), %4]").arg(_position.x()).arg(_position.y()).arg(_position.z()).arg(_scale);
+    setText(display);
 }
 
 void Sphere::genSphereMesh()

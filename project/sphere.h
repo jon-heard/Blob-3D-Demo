@@ -2,14 +2,19 @@
 #define SPHERE_H
 
 #include "mesh.h"
+#include <QListWidgetItem>
+#include <QString>
 
 const int SPHERE_DIVISION = 3;
 
-class Sphere : public Mesh
+class Sphere : public Mesh, public QListWidgetItem
 {
 public:
     Sphere(QOpenGLShaderProgram* shader);
     virtual ~Sphere();
+    virtual void setScale(float value);
+    virtual void setPosition(QVector3D value);
+    void refreshTextDisplay();
 protected:
     void genSphereMesh();
     static int instanceCount;
