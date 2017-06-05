@@ -43,14 +43,15 @@ void Mesh_Blob::genMesh_Blob()
 
 bool Mesh_Blob::MarchingCubes_getIsWithin(QVector3D position)
 {
+    float intensity = 0;
     for (int i = 0; i < sphereCount; ++i) {
-        QVector3D spherePosition = spheres[i]->position();
-        if ((spherePosition-position).length() < spheres[i]->scale())
-        {
-            return true;
-        }
+//        if ((spheres[i]->position()-position).length() < spheres[i]->scale()) {
+//            intensity += 100;
+//        }
+        intensity += spheres[i]->scale() / (spheres[i]->position()-position).length();
     }
-    return false;
+//    qInfo() << intensity;
+    return intensity > 2;
 }
 
 BoundingBox Mesh_Blob::MarchingCubes_getBounds()

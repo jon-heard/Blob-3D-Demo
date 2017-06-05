@@ -5,5 +5,5 @@ get voltage working
 --------
  polish
 --------
+put back face culling back in
 divorce shader from mesh
-figure out why a sphere needs to be manually created at load time to see any spheres

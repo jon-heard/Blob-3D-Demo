@@ -78,8 +78,6 @@ void Mesh::genMesh(vector<QVector3D>** meshData)
         }
     }
 
-    qInfo() << "genMesh: " << shader << ", " << vertexCount;
-
     shader->bind();
 
     vbo = new QOpenGLBuffer();
