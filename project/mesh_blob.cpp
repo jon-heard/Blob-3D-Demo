@@ -51,7 +51,7 @@ bool Mesh_Blob::MarchingCubes_getIsWithin(QVector3D position)
         intensity += spheres[i]->scale() / (spheres[i]->position()-position).length();
     }
 //    qInfo() << intensity;
-    return intensity > 2;
+    return intensity > 1.5;
 }
 
 BoundingBox Mesh_Blob::MarchingCubes_getBounds()

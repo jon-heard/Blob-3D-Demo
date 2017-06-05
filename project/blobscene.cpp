@@ -57,7 +57,7 @@ void BlobScene::initializeGL()
 {
     glClearColor(.25,.25,.25,1);
     glEnable(GL_DEPTH_TEST);
-    //glEnable(GL_CULL_FACE);
+    glEnable(GL_CULL_FACE);
 
     sceneTransform.setToIdentity();
     sceneTransform.translate(0, 0, -5);

@@ -5,7 +5,7 @@
 #include <QVector3D>
 #include <vector>
 
-const float MARCHING_CUBE_SIZE = .05;
+const float MARCHING_CUBE_SIZE = .025;
 
 class QOpenGLShaderProgram;
 
