@@ -8,8 +8,7 @@
 Mesh_Metaball::Mesh_Metaball(QOpenGLShaderProgram* shader) :
     Mesh_MarchingCubes(shader), _listOfSpheres(NULL)
 {
-    //genMesh_Blob();
-    genMesh_MarchingCubes(this);
+    genMesh_Metaball();
 }
 
 Mesh_Metaball::~Mesh_Metaball() {}

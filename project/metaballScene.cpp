@@ -15,7 +15,7 @@ MetaballScene::MetaballScene(QWidget *parent)
 
 MetaballScene::~MetaballScene()
 {
-    delete blob;
+    delete metaballs;
     delete shader_basic;
 }
 
@@ -38,9 +38,9 @@ Mesh_Sphere* MetaballScene::makeSphere() const
     return result;
 }
 
-void MetaballScene::updateBlob()
+void MetaballScene::updateMetaballMesh()
 {
-    blob->setDirty(true);
+    metaballs->setDirty(true);
 }
 
 bool MetaballScene::isRenderingMetaballs() const
@@ -69,8 +69,8 @@ void MetaballScene::initializeGL()
     shader_basic->link();
 
     shader_basic->bind();
-    blob = new Mesh_Metaball(shader_basic);
-    blob->setList(_list);
+    metaballs = new Mesh_Metaball(shader_basic);
+    metaballs->setList(_list);
     Mesh_Sphere* sphere = new Mesh_Sphere(shader_basic);
     delete sphere;
     shader_basic->release();
@@ -78,11 +78,11 @@ void MetaballScene::initializeGL()
 
 void MetaballScene::paintGL()
 {
-    if (blob->dirty())
+    if (metaballs->dirty())
     {
-        blob->setDirty(false);
+        metaballs->setDirty(false);
         shader_basic->bind();
-        blob->genMesh_Metaball();
+        metaballs->genMesh_Metaball();
         shader_basic->release();
     }
 
@@ -95,7 +95,7 @@ void MetaballScene::paintGL()
         shader_basic->setUniformValue("sceneTransform", sceneTransform);
         if (_isRenderingMetaballs)
         {
-            blob->draw();
+            metaballs->draw();
         } else {
             for (int i = 0; i < _list->count(); ++i)
             {

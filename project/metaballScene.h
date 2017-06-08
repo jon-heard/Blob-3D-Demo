@@ -1,5 +1,5 @@
-#ifndef BLOBSCENE_H
-#define BLOBSCENE_H
+#ifndef METABALLSCENE_H
+#define METABALLSCENE_H
 
 #include <QWidget>
 #include <QOpenGLWidget>
@@ -19,7 +19,7 @@ public:
     QListWidget* list() const;
     void setList(QListWidget* value);
     Mesh_Sphere* makeSphere() const;
-    void updateBlob();
+    void updateMetaballMesh();
     bool isRenderingMetaballs() const;
     void setIsRenderingMetaballs(bool value);
 protected:
@@ -42,7 +42,7 @@ private:
     QPoint previousPos;
 
     // Meshes
-    Mesh_Metaball* blob;
+    Mesh_Metaball* metaballs;
 
     // Shaders
     QOpenGLShaderProgram* shader_basic;
@@ -52,4 +52,4 @@ private:
     bool _isRenderingMetaballs;
 };
 
-#endif // BLOBSCENE_H
+#endif // METABALLSCENE_H

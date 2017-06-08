@@ -1,5 +1,5 @@
-#ifndef MESH_BLOB_H
-#define MESH_BLOB_H
+#ifndef MESH_METABALL_H
+#define MESH_METABALL_H
 
 #include "mesh_marchingcubes.h"
 
@@ -21,4 +21,4 @@ protected:
     QListWidget* _listOfSpheres;
 };
 
-#endif // MESH_BLOB_H
+#endif // MESH_METABALL_H

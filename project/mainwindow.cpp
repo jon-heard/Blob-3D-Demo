@@ -33,14 +33,14 @@ void MainWindow::addSphere()
     sphere->setScale(1);
     sphere->setPosition(QVector3D(0,0,0));
     list->addItem(sphere);
-    scene->updateBlob();
+    scene->updateMetaballMesh();
     scene->repaint();
 }
 
 void MainWindow::removeSphere()
 {
     qDeleteAll(list->selectedItems());
-    scene->updateBlob();
+    scene->updateMetaballMesh();
     scene->repaint();
 }
 
@@ -60,6 +60,6 @@ void MainWindow::modifySphere(const QModelIndex &index)
         selected->setPosition(dlg.position());
         selected->setScale(dlg.scale());
     }
-    scene->updateBlob();
+    scene->updateMetaballMesh();
     scene->repaint();
 }
