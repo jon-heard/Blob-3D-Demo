@@ -25,6 +25,11 @@ void Mesh::draw()
     }
 }
 
+float Mesh::scale() const
+{
+    return _scale;
+}
+
 void Mesh::setScale(float value)
 {
     _scale = value;
@@ -33,9 +38,9 @@ void Mesh::setScale(float value)
     modelTransform.scale(_scale, _scale, _scale);
 }
 
-float Mesh::scale()
+QVector3D Mesh::position() const
 {
-    return _scale;
+    return _position;
 }
 
 void Mesh::setPosition(QVector3D value)
@@ -44,11 +49,6 @@ void Mesh::setPosition(QVector3D value)
     modelTransform.setToIdentity();
     modelTransform.translate(_position);
     modelTransform.scale(_scale, _scale, _scale);
-}
-
-QVector3D Mesh::position()
-{
-    return _position;
 }
 
 

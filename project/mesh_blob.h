@@ -12,7 +12,7 @@ class Mesh_Blob : public Mesh_MarchingCubes, public Mesh_MarchingCubesParameters
 public:
     Mesh_Blob(QOpenGLShaderProgram* shader);
     virtual ~Mesh_Blob();
-    QListWidget* list();
+    QListWidget* list() const;
     void setList(QListWidget* value);
     void genMesh_Blob();
     bool MarchingCubes_getIsWithin(QVector3D position);

@@ -28,7 +28,7 @@ class Mesh_MarchingCubes : public Mesh
 public:
     Mesh_MarchingCubes(QOpenGLShaderProgram* shader);
     virtual ~Mesh_MarchingCubes();
-    bool dirty();
+    bool dirty() const;
     void setDirty(bool value);
 
     void genMesh_MarchingCubes(Mesh_MarchingCubesParameters* parameters);

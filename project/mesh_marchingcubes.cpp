@@ -18,7 +18,7 @@ Mesh_MarchingCubes::Mesh_MarchingCubes(QOpenGLShaderProgram* shader) : Mesh(shad
 
 Mesh_MarchingCubes::~Mesh_MarchingCubes() {}
 
-bool Mesh_MarchingCubes::dirty()
+bool Mesh_MarchingCubes::dirty() const
 {
     return _dirty;
 }

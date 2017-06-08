@@ -19,14 +19,14 @@ public:
 private slots:
     void addSphere();
     void removeSphere();
-    void toggleBlobify();
+    void toggleIsRenderingMetaballs();
     void modifySphere(const QModelIndex &index);
 private:
     Ui::MainWindow *ui;
 
     BlobScene* scene;
     QListWidget* list;
-    QRadioButton* _toggleBlobify;
+    QRadioButton* _toggleIsRenderingMetaballs;
 };
 
 #endif // MAINWINDOW_H

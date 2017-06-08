@@ -14,7 +14,7 @@ Mesh_Blob::Mesh_Blob(QOpenGLShaderProgram* shader) :
 
 Mesh_Blob::~Mesh_Blob() {}
 
-QListWidget* Mesh_Blob::list()
+QListWidget* Mesh_Blob::list() const
 {
     return _list;
 }

@@ -140,7 +140,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QRadioButton" name="toggleBlobify">
+           <widget class="QRadioButton" name="toggleIsRenderingMetaballs">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
               <horstretch>0</horstretch>
@@ -148,7 +148,7 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Blobify</string>
+             <string>Metaballs</string>
             </property>
             <property name="checked">
              <bool>false</bool>

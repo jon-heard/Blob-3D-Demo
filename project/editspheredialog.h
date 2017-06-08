@@ -15,8 +15,8 @@ class EditSphereDialog : public QDialog
 public:
     explicit EditSphereDialog(QWidget *parent, QVector3D position, float scale);
     ~EditSphereDialog();
-    QVector3D position();
-    float scale();
+    QVector3D position() const;
+    float scale() const;
 private:
     Ui::EditSphereDialog *ui;
 };

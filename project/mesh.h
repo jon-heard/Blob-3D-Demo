@@ -16,10 +16,10 @@ public:
     virtual ~Mesh();
     void draw();
 
+    float scale() const;
     virtual void setScale(float value);
-    float scale();
+    QVector3D position() const;
     virtual void setPosition(QVector3D value);
-    QVector3D position();
 protected:
     void genMesh(const std::vector<std::vector<QVector3D>>& meshData);
 

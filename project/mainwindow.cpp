@@ -14,11 +14,11 @@ MainWindow::MainWindow(QWidget *parent) :
     scene = this->findChild<BlobScene*>("scene");
     list = this->findChild<QListWidget*>("sphereList");
     scene->setList(list);
-    _toggleBlobify = this->findChild<QRadioButton*>("toggleBlobify");
+    _toggleIsRenderingMetaballs = this->findChild<QRadioButton*>("toggleIsRenderingMetaballs");
 
     connect(this->findChild<QPushButton*>("addSphere"), SIGNAL (released()), this, SLOT (addSphere()));
     connect(this->findChild<QPushButton*>("removeSphere"), SIGNAL (released()), this, SLOT (removeSphere()));
-    connect(_toggleBlobify, SIGNAL (released()), this, SLOT (toggleBlobify()));
+    connect(_toggleIsRenderingMetaballs, SIGNAL (released()), this, SLOT (toggleIsRenderingMetaballs()));
     connect(list, SIGNAL (doubleClicked(const QModelIndex&)), this, SLOT (modifySphere(const QModelIndex&)));
 }
 
@@ -44,9 +44,9 @@ void MainWindow::removeSphere()
     scene->repaint();
 }
 
-void MainWindow::toggleBlobify()
+void MainWindow::toggleIsRenderingMetaballs()
 {
-    scene->setBlobify(_toggleBlobify->isChecked());
+    scene->setIsRenderingMetaballs(_toggleIsRenderingMetaballs->isChecked());
 }
 
 void MainWindow::modifySphere(const QModelIndex &index)

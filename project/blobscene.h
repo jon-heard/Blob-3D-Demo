@@ -16,12 +16,12 @@ class BlobScene : public QOpenGLWidget
 public:
     BlobScene(QWidget *parent = 0);
     ~BlobScene();
-    QListWidget* list();
+    QListWidget* list() const;
     void setList(QListWidget* value);
-    Mesh_Sphere* makeSphere();
+    Mesh_Sphere* makeSphere() const;
     void updateBlob();
-    bool blobify();
-    void setBlobify(bool value);
+    bool isRenderingMetaballs() const;
+    void setIsRenderingMetaballs(bool value);
 protected:
     void initializeGL();
     void resizeGL(int w, int h);
@@ -49,7 +49,7 @@ private:
 
     // UI
     QListWidget* _list;
-    bool _blobify;
+    bool _isRenderingMetaballs;
 };
 
 #endif // BLOBSCENE_H

@@ -17,7 +17,7 @@ EditSphereDialog::~EditSphereDialog()
     delete ui;
 }
 
-QVector3D EditSphereDialog::position()
+QVector3D EditSphereDialog::position() const
 {
     QVector3D result;
     result.setX(this->findChild<QDoubleSpinBox*>("ValueX")->value());
@@ -26,7 +26,7 @@ QVector3D EditSphereDialog::position()
     return result;
 }
 
-float EditSphereDialog::scale()
+float EditSphereDialog::scale() const
 {
     return this->findChild<QDoubleSpinBox*>("ValueScale")->value();
 }

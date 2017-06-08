@@ -11,7 +11,7 @@ using namespace std;
 
 BlobScene::BlobScene(QWidget *parent)
     : QOpenGLWidget(parent),
-      _blobify(false), zoom(-5) {}
+      _isRenderingMetaballs(false), zoom(-5) {}
 
 BlobScene::~BlobScene()
 {
@@ -19,7 +19,7 @@ BlobScene::~BlobScene()
     delete shader_basic;
 }
 
-QListWidget* BlobScene::list()
+QListWidget* BlobScene::list() const
 {
     return _list;
 }
@@ -30,11 +30,12 @@ void BlobScene::setList(QListWidget* value)
 }
 
 
-Mesh_Sphere* BlobScene::makeSphere()
+Mesh_Sphere* BlobScene::makeSphere() const
 {
     shader_basic->bind();
-    return new Mesh_Sphere(shader_basic);
+    Mesh_Sphere* result = new Mesh_Sphere(shader_basic);
     shader_basic->release();
+    return result;
 }
 
 void BlobScene::updateBlob()
@@ -42,14 +43,14 @@ void BlobScene::updateBlob()
     blob->setDirty(true);
 }
 
-bool BlobScene::blobify()
+bool BlobScene::isRenderingMetaballs() const
 {
-    return _blobify;
+    return _isRenderingMetaballs;
 }
 
-void BlobScene::setBlobify(bool value)
+void BlobScene::setIsRenderingMetaballs(bool value)
 {
-    _blobify = value;
+    _isRenderingMetaballs = value;
     repaint();
 }
 
@@ -92,7 +93,7 @@ void BlobScene::paintGL()
         shader_basic->bind();
         shader_basic->setUniformValue("projectionTransform", projectionTransform);
         shader_basic->setUniformValue("sceneTransform", sceneTransform);
-        if (_blobify)
+        if (_isRenderingMetaballs)
         {
             blob->draw();
         } else {
