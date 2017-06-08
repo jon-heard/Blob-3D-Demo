@@ -5,7 +5,7 @@
 #include <QVector3D>
 #include <vector>
 
-const float MARCHING_CUBE_SIZE = .025f;
+const float MARCHING_CUBE_SIZE = .05f;
 
 class QOpenGLShaderProgram;
 
@@ -34,7 +34,7 @@ public:
     void genMesh_MarchingCubes(Mesh_MarchingCubesParameters* parameters);
 private:
     void addVectorsToMesh(QVector3D offset, std::vector<QVector3D> vertices, std::vector<QVector3D>& positions, std::vector<QVector3D>& tris);
-    void addCubeToMesh(std::vector<QVector3D> hits, QVector3D position, std::vector<QVector3D>& positions, std::vector<QVector3D>& tris);
+    std::vector<QVector3D> calcCubeMesh(std::vector<QVector3D> hits);
     bool _dirty;
 };
 

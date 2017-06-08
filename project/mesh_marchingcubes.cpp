@@ -84,7 +84,8 @@ void Mesh_MarchingCubes::genMesh_MarchingCubes(Mesh_MarchingCubesParameters* par
                     }
                     if (hits.size() > 0 && hits.size() < 8)
                     {
-                        addCubeToMesh(hits, QVector3D(x,y,z), positions, tris);
+                        vector<QVector3D> cubeVectors = calcCubeMesh(hits);
+                        addVectorsToMesh(QVector3D(x,y,z), cubeVectors, positions, tris);
                     }
                 }
             }
@@ -106,10 +107,11 @@ void Mesh_MarchingCubes::addVectorsToMesh(QVector3D offset, vector<QVector3D> ve
     }
 }
 
-void Mesh_MarchingCubes::addCubeToMesh(vector<QVector3D> hits, QVector3D position, vector<QVector3D>& positions, vector<QVector3D>& tris)
+vector<QVector3D> Mesh_MarchingCubes::calcCubeMesh(vector<QVector3D> hits)
 {
     vector<QVector3D> vertices;
     int opposedAxis = -1;
+    vector<QVector3D> newVertices;
 
     switch (hits.size()) {
     case 1:
@@ -137,9 +139,11 @@ void Mesh_MarchingCubes::addCubeToMesh(vector<QVector3D> hits, QVector3D positio
         if (opposedAxis == -2) {
             vector<QVector3D> subHits;
             subHits.push_back(hits[0]);
-            addCubeToMesh(subHits, position, positions, tris);
+            newVertices = calcCubeMesh(subHits);
+            vertices.insert(vertices.end(), newVertices.begin(), newVertices.end());
             subHits[0] = hits[1];
-            addCubeToMesh(subHits, position, positions, tris);
+            newVertices = calcCubeMesh(subHits);
+            vertices.insert(vertices.end(), newVertices.begin(), newVertices.end());
         } else {
             int alignedAxis1 = 0;
             int alignedAxis2 = 1;
@@ -241,21 +245,26 @@ void Mesh_MarchingCubes::addCubeToMesh(vector<QVector3D> hits, QVector3D positio
                 if (opposedHit == 1) { alignedHit2 = 2; }
                 vector<QVector3D> subHits;
                 subHits.push_back(hits[opposedHit]);
-                addCubeToMesh(subHits, position, positions, tris);
+                newVertices = calcCubeMesh(subHits);
+                vertices.insert(vertices.end(), newVertices.begin(), newVertices.end());
                 subHits.clear();
                 subHits.push_back(hits[alignedHit1]);
                 subHits.push_back(hits[alignedHit2]);
-                addCubeToMesh(subHits, position, positions, tris);
+                newVertices = calcCubeMesh(subHits);
+                vertices.insert(vertices.end(), newVertices.begin(), newVertices.end());
             } else {
                 vector<QVector3D> subHits;
                 subHits.push_back(hits[0]);
-                addCubeToMesh(subHits, position, positions, tris);
+                newVertices = calcCubeMesh(subHits);
+                vertices.insert(vertices.end(), newVertices.begin(), newVertices.end());
                 subHits.clear();
                 subHits.push_back(hits[1]);
-                addCubeToMesh(subHits, position, positions, tris);
+                newVertices = calcCubeMesh(subHits);
+                vertices.insert(vertices.end(), newVertices.begin(), newVertices.end());
                 subHits.clear();
                 subHits.push_back(hits[2]);
-                addCubeToMesh(subHits, position, positions, tris);
+                newVertices = calcCubeMesh(subHits);
+                vertices.insert(vertices.end(), newVertices.begin(), newVertices.end());
             }
         }
         break;
@@ -412,6 +421,6 @@ void Mesh_MarchingCubes::addCubeToMesh(vector<QVector3D> hits, QVector3D positio
 //    vertices.push_back(QVector3D(-1, +1, +1));  vertices.push_back(QVector3D(-1, -1, +1));  vertices.push_back(QVector3D(+1, +1, +1));
 //    vertices.push_back(QVector3D(+1, -1, +1));  vertices.push_back(QVector3D(+1, +1, +1));  vertices.push_back(QVector3D(-1, -1, +1));
 
-    addVectorsToMesh(position, vertices, positions, tris);
+    return vertices;
 }
 
