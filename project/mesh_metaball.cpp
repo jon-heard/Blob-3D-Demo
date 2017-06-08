@@ -1,67 +1,60 @@
 
-#include "mesh_blob.h"
+#include "mesh_metaball.h"
 #include <QOpenGLShaderProgram>
 #include <QListWidget>
 #include <QDebug>
 #include <mesh_sphere.h>
 
-Mesh_Blob::Mesh_Blob(QOpenGLShaderProgram* shader) :
-    Mesh_MarchingCubes(shader), _list(NULL)
+Mesh_Metaball::Mesh_Metaball(QOpenGLShaderProgram* shader) :
+    Mesh_MarchingCubes(shader), _listOfSpheres(NULL)
 {
     //genMesh_Blob();
     genMesh_MarchingCubes(this);
 }
 
-Mesh_Blob::~Mesh_Blob() {}
+Mesh_Metaball::~Mesh_Metaball() {}
 
-QListWidget* Mesh_Blob::list() const
+QListWidget* Mesh_Metaball::list() const
 {
-    return _list;
+    return _listOfSpheres;
 }
 
-void Mesh_Blob::setList(QListWidget* value)
+void Mesh_Metaball::setList(QListWidget* value)
 {
-    _list = value;
+    _listOfSpheres = value;
 }
 
 
-void Mesh_Blob::genMesh_Blob()
+void Mesh_Metaball::genMesh_Blob()
 {
-    if (_list != NULL && _list->count() > 0) {
-        sphereCount = _list->count();
-        spheres = new Mesh_Sphere*[sphereCount];
-        for (int i = 0; i < _list->count(); ++i)
-        {
-            spheres[i] = (Mesh_Sphere*)_list->item(i);
-        }
+    if (_listOfSpheres != NULL && _listOfSpheres->count() > 0) {
         genMesh_MarchingCubes(this);
-        delete spheres;
+//        delete spheres;
     } else {
         genMesh_MarchingCubes(NULL);
     }
 }
 
-bool Mesh_Blob::MarchingCubes_getIsWithin(QVector3D position)
+bool Mesh_Metaball::MarchingCubes_getIsWithin(QVector3D position)
 {
     float intensity = 0;
+    int sphereCount = _listOfSpheres->count();
     for (int i = 0; i < sphereCount; ++i) {
-//        if ((spheres[i]->position()-position).length() < spheres[i]->scale()) {
-//            intensity += 100;
-//        }
-        intensity += spheres[i]->scale() / (spheres[i]->position()-position).length();
+        Mesh_Sphere* sphere = (Mesh_Sphere*)_listOfSpheres->item(i);
+        intensity += sphere->scale() / (sphere->position()-position).length();
     }
-//    qInfo() << intensity;
     return intensity > 1.5;
 }
 
-BoundingBox Mesh_Blob::MarchingCubes_getBounds()
+BoundingBox Mesh_Metaball::MarchingCubes_getBounds()
 {
     BoundingBox result;
-    if (sphereCount > 0)
+    if (_listOfSpheres != NULL && _listOfSpheres->count() > 0)
     {
-        for (int i = 0; i < _list->count(); ++i)
+        int sphereCount = _listOfSpheres->count();
+        for (int i = 0; i < sphereCount; ++i)
         {
-            Mesh_Sphere* sphere = spheres[i];
+            Mesh_Sphere* sphere = (Mesh_Sphere*)_listOfSpheres->item(i);
             float scale = sphere->scale();
             if (sphere->position().x() - scale < result.low.x())
             {
