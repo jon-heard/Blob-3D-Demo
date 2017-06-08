@@ -9,7 +9,7 @@
 class QOpenGLShaderProgram;
 class QListWidget;
 class Mesh_Sphere;
-class Mesh_Blob;
+class Mesh_Metaball;
 
 class BlobScene : public QOpenGLWidget
 {
@@ -42,7 +42,7 @@ private:
     QPoint previousPos;
 
     // Meshes
-    Mesh_Blob* blob;
+    Mesh_Metaball* blob;
 
     // Shaders
     QOpenGLShaderProgram* shader_basic;

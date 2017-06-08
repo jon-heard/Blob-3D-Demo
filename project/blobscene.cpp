@@ -3,7 +3,7 @@
 #include <QMouseEvent>
 #include <QOpenGLShaderProgram>
 #include "mesh_sphere.h"
-#include "mesh_blob.h"
+#include "mesh_metaball.h"
 #include <QDebug>
 #include <QListWidget>
 
@@ -69,7 +69,7 @@ void BlobScene::initializeGL()
     shader_basic->link();
 
     shader_basic->bind();
-    blob = new Mesh_Blob(shader_basic);
+    blob = new Mesh_Metaball(shader_basic);
     blob->setList(_list);
     Mesh_Sphere* sphere = new Mesh_Sphere(shader_basic);
     delete sphere;
