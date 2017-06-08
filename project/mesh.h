@@ -21,7 +21,7 @@ public:
     virtual void setPosition(QVector3D value);
     QVector3D position();
 protected:
-    void genMesh(std::vector<QVector3D>** meshData);
+    void genMesh(const std::vector<std::vector<QVector3D>>& meshData);
 
     QOpenGLShaderProgram* shader;
     QOpenGLBuffer* vbo;

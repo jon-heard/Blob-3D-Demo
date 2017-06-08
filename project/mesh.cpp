@@ -52,23 +52,22 @@ QVector3D Mesh::position()
 }
 
 
-void Mesh::genMesh(vector<QVector3D>** meshData)
+void Mesh::genMesh(const vector<vector<QVector3D>>& meshData)
 {
-    vector<QVector3D>* positions = meshData[0];
-    vector<QVector3D>* tris = meshData[1];
+    vector<QVector3D> positions = meshData[0];
+    vector<QVector3D> tris = meshData[1];
 
-    vertexCount = (int)tris->size() * 3;
+    vertexCount = (int)tris.size() * 3;
     float* result = new float[vertexCount * 7];
     int currentResult = 0;
-    for (vector<QVector3D>::iterator i = tris->begin();
-         i != tris->end(); ++i) {
-        QVector3D preNormal1 = ((*positions)[(*i)[1]] - (*positions)[(*i)[0]]).normalized();
-        QVector3D preNormal2 = ((*positions)[(*i)[2]] - (*positions)[(*i)[0]]).normalized();
+    for (vector<QVector3D>::iterator i = tris.begin(); i != tris.end(); ++i) {
+        QVector3D preNormal1 = (positions[(*i)[1]] - positions[(*i)[0]]).normalized();
+        QVector3D preNormal2 = (positions[(*i)[2]] - positions[(*i)[0]]).normalized();
         QVector3D normal = QVector3D::crossProduct(preNormal1, preNormal2).normalized();
         for (int j = 0; j < 3; ++j) {
             int currentVector = (*i)[j];
             for (int k = 0; k < 3; ++k) {
-                result[currentResult] = (*positions)[currentVector][k];
+                result[currentResult] = positions[currentVector][k];
                 ++currentResult;
             }
             for (int k = 0; k < 3; ++k) {

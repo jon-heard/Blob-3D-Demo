@@ -73,7 +73,6 @@ void Mesh_MarchingCubes::genMesh_MarchingCubes(Mesh_MarchingCubesParameters* par
                 for (float z = bounds.low.z(); z < bounds.high.z(); z += MARCHING_CUBE_SIZE)
                 {
                     vector<QVector3D> hits;
-                    unsigned char cubeType = 0;
                     for (int i = 0; i < 8; ++i) {
                         if (parameters->MarchingCubes_getIsWithin(QVector3D(
                                                                       x + MARCHING_CUBE_SIZE * CORNERS[i][0],
@@ -91,14 +90,14 @@ void Mesh_MarchingCubes::genMesh_MarchingCubes(Mesh_MarchingCubesParameters* par
             }
         }
 
-        vector<QVector3D>* meshData[] = {&positions, &tris};
+        vector<vector<QVector3D>> meshData = {positions, tris};
         genMesh(meshData);
     }
 }
 
 void Mesh_MarchingCubes::addVectorsToMesh(QVector3D offset, vector<QVector3D> vertices, vector<QVector3D>& positions, vector<QVector3D>& tris)
 {
-    int startIndex = positions.size();
+    unsigned int startIndex = (unsigned int)positions.size();
     for (int i = 0; i < vertices.size(); ++i) {
         positions.push_back(offset + MARCHING_CUBE_SIZE * vertices[i]);
     }

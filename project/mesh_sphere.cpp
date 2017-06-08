@@ -95,6 +95,6 @@ void Mesh_Sphere::genMesh_Sphere()
         (*i).normalize();
     }
 
-    vector<QVector3D>* meshData[] = {&positions, &tris};
+    vector<vector<QVector3D>> meshData = {positions, tris};
     genMesh(meshData);
 }
