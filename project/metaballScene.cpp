@@ -3,7 +3,7 @@
 #include <QMouseEvent>
 #include <QOpenGLShaderProgram>
 #include "mesh_sphere.h"
-#include "mesh_metaball.h"
+#include "mesh_metaballs.h"
 #include <QDebug>
 #include <QListWidget>
 
@@ -69,7 +69,7 @@ void MetaballScene::initializeGL()
     shader_basic->link();
 
     shader_basic->bind();
-    metaballs = new Mesh_Metaball(shader_basic);
+    metaballs = new Mesh_Metaballs(shader_basic);
     metaballs->setList(_list);
     Mesh_Sphere* sphere = new Mesh_Sphere(shader_basic);
     delete sphere;

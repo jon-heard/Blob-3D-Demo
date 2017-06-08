@@ -1,30 +1,30 @@
 
-#include "mesh_metaball.h"
+#include "mesh_metaballs.h"
 #include <QOpenGLShaderProgram>
 #include <QListWidget>
 #include <QDebug>
 #include <mesh_sphere.h>
 
-Mesh_Metaball::Mesh_Metaball(QOpenGLShaderProgram* shader) :
+Mesh_Metaballs::Mesh_Metaballs(QOpenGLShaderProgram* shader) :
     Mesh_MarchingCubes(shader), _listOfSpheres(NULL)
 {
     genMesh_Metaball();
 }
 
-Mesh_Metaball::~Mesh_Metaball() {}
+Mesh_Metaballs::~Mesh_Metaballs() {}
 
-QListWidget* Mesh_Metaball::list() const
+QListWidget* Mesh_Metaballs::list() const
 {
     return _listOfSpheres;
 }
 
-void Mesh_Metaball::setList(QListWidget* value)
+void Mesh_Metaballs::setList(QListWidget* value)
 {
     _listOfSpheres = value;
 }
 
 
-void Mesh_Metaball::genMesh_Metaball()
+void Mesh_Metaballs::genMesh_Metaball()
 {
     if (_listOfSpheres != NULL && _listOfSpheres->count() > 0) {
         genMesh_MarchingCubes(this);
@@ -33,7 +33,7 @@ void Mesh_Metaball::genMesh_Metaball()
     }
 }
 
-bool Mesh_Metaball::Mesh_MarchingCubeParameters_getIsWithin(QVector3D position)
+bool Mesh_Metaballs::Mesh_MarchingCubeParameters_getIsWithin(QVector3D position)
 {
     float intensity = 0;
     int sphereCount = _listOfSpheres->count();
@@ -44,7 +44,7 @@ bool Mesh_Metaball::Mesh_MarchingCubeParameters_getIsWithin(QVector3D position)
     return intensity > 1.5;
 }
 
-BoundingBox Mesh_Metaball::Mesh_MarchingCubeParameters_getBounds()
+BoundingBox Mesh_Metaballs::Mesh_MarchingCubeParameters_getBounds()
 {
     BoundingBox result;
     if (_listOfSpheres != NULL && _listOfSpheres->count() > 0)

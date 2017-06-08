@@ -31,8 +31,8 @@ SOURCES += \
     editspheredialog.cpp \
     mesh_marchingcubes.cpp \
     mesh_sphere.cpp \
-    mesh_metaball.cpp \
-    metaballScene.cpp
+    metaballScene.cpp \
+    mesh_metaballs.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -40,8 +40,8 @@ HEADERS += \
     editspheredialog.h \
     mesh_marchingcubes.h \
     mesh_sphere.h \
-    mesh_metaball.h \
-    metaballScene.h
+    metaballScene.h \
+    mesh_metaballs.h
 
 FORMS += \
         mainwindow.ui \
