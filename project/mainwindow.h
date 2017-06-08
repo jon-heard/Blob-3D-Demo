@@ -5,7 +5,7 @@
 #include <QModelIndex>
 
 namespace Ui { class MainWindow; }
-class BlobScene;
+class MetaballScene;
 class QListWidget;
 class QRadioButton;
 
@@ -24,7 +24,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    BlobScene* scene;
+    MetaballScene* scene;
     QListWidget* list;
     QRadioButton* _toggleIsRenderingMetaballs;
 };

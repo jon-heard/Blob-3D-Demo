@@ -14,9 +14,9 @@ public:
     virtual ~Mesh_Metaball();
     QListWidget* list() const;
     void setList(QListWidget* value);
-    void genMesh_Blob();
-    bool MarchingCubes_getIsWithin(QVector3D position);
-    BoundingBox MarchingCubes_getBounds();
+    void genMesh_Metaball();
+    bool Mesh_MarchingCubeParameters_getIsWithin(QVector3D position);
+    BoundingBox Mesh_MarchingCubeParameters_getBounds();
 protected:
     QListWidget* _listOfSpheres;
 };

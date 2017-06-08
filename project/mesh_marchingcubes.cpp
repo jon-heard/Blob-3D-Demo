@@ -40,7 +40,7 @@ void Mesh_MarchingCubes::genMesh_MarchingCubes(Mesh_MarchingCubesParameters* par
         vao = NULL;
     }
     if (parameters != NULL) {
-        BoundingBox bounds = parameters->MarchingCubes_getBounds();
+        BoundingBox bounds = parameters->Mesh_MarchingCubeParameters_getBounds();
         //bounds.low *= 2;
         //bounds.high *= 2;
 
@@ -74,7 +74,7 @@ void Mesh_MarchingCubes::genMesh_MarchingCubes(Mesh_MarchingCubesParameters* par
                 {
                     vector<QVector3D> hits;
                     for (int i = 0; i < 8; ++i) {
-                        if (parameters->MarchingCubes_getIsWithin(QVector3D(
+                        if (parameters->Mesh_MarchingCubeParameters_getIsWithin(QVector3D(
                                                                       x + MARCHING_CUBE_SIZE * CORNERS[i][0],
                                                                       y + MARCHING_CUBE_SIZE * CORNERS[i][1],
                                                                       z + MARCHING_CUBE_SIZE * CORNERS[i][2])))

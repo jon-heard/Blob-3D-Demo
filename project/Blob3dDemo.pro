@@ -27,21 +27,21 @@ LIBS += opengl32.lib
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    blobscene.cpp \
     mesh.cpp \
     editspheredialog.cpp \
     mesh_marchingcubes.cpp \
     mesh_sphere.cpp \
-    mesh_metaball.cpp
+    mesh_metaball.cpp \
+    metaballScene.cpp
 
 HEADERS += \
         mainwindow.h \
-    blobscene.h \
     mesh.h \
     editspheredialog.h \
     mesh_marchingcubes.h \
     mesh_sphere.h \
-    mesh_metaball.h
+    mesh_metaball.h \
+    metaballScene.h
 
 FORMS += \
         mainwindow.ui \

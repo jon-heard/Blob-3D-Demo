@@ -19,8 +19,8 @@ public:
 class Mesh_MarchingCubesParameters
 {
 public:
-    virtual bool MarchingCubes_getIsWithin(QVector3D position) = 0;
-    virtual BoundingBox MarchingCubes_getBounds() = 0;
+    virtual bool Mesh_MarchingCubeParameters_getIsWithin(QVector3D position) = 0;
+    virtual BoundingBox Mesh_MarchingCubeParameters_getBounds() = 0;
 };
 
 class Mesh_MarchingCubes : public Mesh

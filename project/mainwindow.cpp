@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    scene = this->findChild<BlobScene*>("scene");
+    scene = this->findChild<MetaballScene*>("scene");
     list = this->findChild<QListWidget*>("sphereList");
     scene->setList(list);
     _toggleIsRenderingMetaballs = this->findChild<QRadioButton*>("toggleIsRenderingMetaballs");

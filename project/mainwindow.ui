@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Blob 3D Demo</string>
+   <string>Metaball 3D Demo</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -31,7 +31,7 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="BlobScene" name="scene">
+     <widget class="MetaballScene" name="scene">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
         <horstretch>0</horstretch>
@@ -167,9 +167,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>BlobScene</class>
+   <class>MetaballScene</class>
    <extends>QOpenGLWidget</extends>
-   <header>blobscene.h</header>
+   <header>metaballScene.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

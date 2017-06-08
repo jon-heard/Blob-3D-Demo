@@ -25,17 +25,16 @@ void Mesh_Metaball::setList(QListWidget* value)
 }
 
 
-void Mesh_Metaball::genMesh_Blob()
+void Mesh_Metaball::genMesh_Metaball()
 {
     if (_listOfSpheres != NULL && _listOfSpheres->count() > 0) {
         genMesh_MarchingCubes(this);
-//        delete spheres;
     } else {
         genMesh_MarchingCubes(NULL);
     }
 }
 
-bool Mesh_Metaball::MarchingCubes_getIsWithin(QVector3D position)
+bool Mesh_Metaball::Mesh_MarchingCubeParameters_getIsWithin(QVector3D position)
 {
     float intensity = 0;
     int sphereCount = _listOfSpheres->count();
@@ -46,7 +45,7 @@ bool Mesh_Metaball::MarchingCubes_getIsWithin(QVector3D position)
     return intensity > 1.5;
 }
 
-BoundingBox Mesh_Metaball::MarchingCubes_getBounds()
+BoundingBox Mesh_Metaball::Mesh_MarchingCubeParameters_getBounds()
 {
     BoundingBox result;
     if (_listOfSpheres != NULL && _listOfSpheres->count() > 0)

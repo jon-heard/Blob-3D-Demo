@@ -1,5 +1,5 @@
 
-#include "BlobScene.h"
+#include "metaballScene.h"
 #include <QMouseEvent>
 #include <QOpenGLShaderProgram>
 #include "mesh_sphere.h"
@@ -9,28 +9,28 @@
 
 using namespace std;
 
-BlobScene::BlobScene(QWidget *parent)
+MetaballScene::MetaballScene(QWidget *parent)
     : QOpenGLWidget(parent),
       _isRenderingMetaballs(false), zoom(-5) {}
 
-BlobScene::~BlobScene()
+MetaballScene::~MetaballScene()
 {
     delete blob;
     delete shader_basic;
 }
 
-QListWidget* BlobScene::list() const
+QListWidget* MetaballScene::list() const
 {
     return _list;
 }
 
-void BlobScene::setList(QListWidget* value)
+void MetaballScene::setList(QListWidget* value)
 {
     _list = value;
 }
 
 
-Mesh_Sphere* BlobScene::makeSphere() const
+Mesh_Sphere* MetaballScene::makeSphere() const
 {
     shader_basic->bind();
     Mesh_Sphere* result = new Mesh_Sphere(shader_basic);
@@ -38,23 +38,23 @@ Mesh_Sphere* BlobScene::makeSphere() const
     return result;
 }
 
-void BlobScene::updateBlob()
+void MetaballScene::updateBlob()
 {
     blob->setDirty(true);
 }
 
-bool BlobScene::isRenderingMetaballs() const
+bool MetaballScene::isRenderingMetaballs() const
 {
     return _isRenderingMetaballs;
 }
 
-void BlobScene::setIsRenderingMetaballs(bool value)
+void MetaballScene::setIsRenderingMetaballs(bool value)
 {
     _isRenderingMetaballs = value;
     repaint();
 }
 
-void BlobScene::initializeGL()
+void MetaballScene::initializeGL()
 {
     glClearColor(.25,.25,.25,1);
     glEnable(GL_DEPTH_TEST);
@@ -76,13 +76,13 @@ void BlobScene::initializeGL()
     shader_basic->release();
 }
 
-void BlobScene::paintGL()
+void MetaballScene::paintGL()
 {
     if (blob->dirty())
     {
         blob->setDirty(false);
         shader_basic->bind();
-        blob->genMesh_Blob();
+        blob->genMesh_Metaball();
         shader_basic->release();
     }
 
@@ -106,19 +106,19 @@ void BlobScene::paintGL()
     }
 }
 
-void BlobScene::resizeGL(int w, int h)
+void MetaballScene::resizeGL(int w, int h)
 {
     projectionTransform.setToIdentity();
     projectionTransform.perspective(45, (float)w/h, 0.001f, 1000.0f);
 }
 
-void BlobScene::mousePressEvent(QMouseEvent *event)
+void MetaballScene::mousePressEvent(QMouseEvent *event)
 {
     previousPos = event->pos();
     previousRotation = rotation;
 }
 
-void BlobScene::mouseMoveEvent(QMouseEvent *event)
+void MetaballScene::mouseMoveEvent(QMouseEvent *event)
 {
     if (event->buttons() & Qt::LeftButton)
     {
@@ -128,14 +128,14 @@ void BlobScene::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
-void BlobScene::wheelEvent(QWheelEvent* event)
+void MetaballScene::wheelEvent(QWheelEvent* event)
 {
     zoom += event->delta() / 120;
     if (zoom > -2) { zoom = -2; }
     refreshSceneTransform();
 }
 
-void BlobScene::refreshSceneTransform()
+void MetaballScene::refreshSceneTransform()
 {
     sceneTransform.setToIdentity();
     sceneTransform.translate(0, 0, zoom);

@@ -11,11 +11,11 @@ class QListWidget;
 class Mesh_Sphere;
 class Mesh_Metaball;
 
-class BlobScene : public QOpenGLWidget
+class MetaballScene : public QOpenGLWidget
 {
 public:
-    BlobScene(QWidget *parent = 0);
-    ~BlobScene();
+    MetaballScene(QWidget *parent = 0);
+    ~MetaballScene();
     QListWidget* list() const;
     void setList(QListWidget* value);
     Mesh_Sphere* makeSphere() const;
