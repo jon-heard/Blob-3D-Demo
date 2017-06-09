@@ -33,7 +33,7 @@ void MetaballScene::setList(QListWidget* value)
 Mesh_Sphere* MetaballScene::makeSphere() const
 {
     shader_basic->bind();
-    Mesh_Sphere* result = new Mesh_Sphere(shader_basic);
+    Mesh_Sphere* result = new Mesh_Sphere();
     shader_basic->release();
     return result;
 }
@@ -69,9 +69,9 @@ void MetaballScene::initializeGL()
     shader_basic->link();
 
     shader_basic->bind();
-    metaballs = new Mesh_Metaballs(shader_basic);
+    metaballs = new Mesh_Metaballs();
     metaballs->setList(_list);
-    Mesh_Sphere* sphere = new Mesh_Sphere(shader_basic);
+    Mesh_Sphere* sphere = new Mesh_Sphere();
     delete sphere;
     shader_basic->release();
 }
@@ -95,11 +95,11 @@ void MetaballScene::paintGL()
         shader_basic->setUniformValue("sceneTransform", sceneTransform);
         if (_isRenderingMetaballs)
         {
-            metaballs->draw();
+            metaballs->draw(shader_basic);
         } else {
             for (int i = 0; i < _list->count(); ++i)
             {
-                ((Mesh_Sphere*)_list->item(i))->draw();
+                ((Mesh_Sphere*)_list->item(i))->draw(shader_basic);
             }
         }
         shader_basic->release();

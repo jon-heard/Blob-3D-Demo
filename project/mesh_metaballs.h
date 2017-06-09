@@ -10,7 +10,7 @@ class Mesh_Sphere;
 class Mesh_Metaballs : public Mesh_MarchingCubes, public Mesh_MarchingCubesParameters
 {
 public:
-    Mesh_Metaballs(QOpenGLShaderProgram* shader);
+    Mesh_Metaballs();
     virtual ~Mesh_Metaballs();
     QListWidget* list() const;
     void setList(QListWidget* value);

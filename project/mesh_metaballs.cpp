@@ -5,8 +5,8 @@
 #include <QDebug>
 #include <mesh_sphere.h>
 
-Mesh_Metaballs::Mesh_Metaballs(QOpenGLShaderProgram* shader) :
-    Mesh_MarchingCubes(shader), _listOfSpheres(NULL)
+Mesh_Metaballs::Mesh_Metaballs() :
+    _listOfSpheres(NULL)
 {
     genMesh_Metaball();
 }

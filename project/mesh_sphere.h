@@ -10,7 +10,7 @@ const int SPHERE_DIVISION = 4;
 class Mesh_Sphere : public Mesh, public QListWidgetItem
 {
 public:
-    Mesh_Sphere(QOpenGLShaderProgram* shader);
+    Mesh_Sphere();
     virtual ~Mesh_Sphere();
     virtual void setScale(float value);
     virtual void setPosition(QVector3D value);

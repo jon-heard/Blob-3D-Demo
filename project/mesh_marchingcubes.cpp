@@ -11,7 +11,7 @@ const int CORNERS[8][3] = {
     {+1, -1, -1}, {+1, -1, +1}, {+1, +1, -1}, {+1, +1, +1}
 };
 
-Mesh_MarchingCubes::Mesh_MarchingCubes(QOpenGLShaderProgram* shader) : Mesh(shader)
+Mesh_MarchingCubes::Mesh_MarchingCubes()
 {
 
 }

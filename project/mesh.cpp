@@ -3,19 +3,26 @@
 #include <QOpenGLShaderProgram>
 #include <QOpenGLBuffer>
 #include <QOpenGLVertexArrayObject>
+#include <QOpenGLFunctions>
 #include <QDebug>
 
 using namespace std;
 
-Mesh::Mesh(QOpenGLShaderProgram* shader) :
+QOpenGLFunctions* Mesh::gl = NULL;
+
+Mesh::Mesh() :
     _scale(1), vbo(NULL), vao(NULL)
 {
-    this->shader = shader;
+    if (gl == NULL)
+    {
+        gl = new QOpenGLFunctions();
+        gl->initializeOpenGLFunctions();
+    }
 }
 
 Mesh::~Mesh() {}
 
-void Mesh::draw()
+void Mesh::draw(QOpenGLShaderProgram* shader)
 {
     if (vao != NULL) {
         shader->setUniformValue("modelTransform", modelTransform);
@@ -58,7 +65,7 @@ void Mesh::genMesh(const vector<vector<QVector3D>>& meshData)
     vector<QVector3D> tris = meshData[1];
 
     vertexCount = (int)tris.size() * 3;
-    float* result = new float[vertexCount * 7];
+    float* finalVboData = new float[vertexCount * 6];
     int currentResult = 0;
     for (vector<QVector3D>::iterator i = tris.begin(); i != tris.end(); ++i) {
         QVector3D preNormal1 = (positions[(*i)[1]] - positions[(*i)[0]]).normalized();
@@ -67,40 +74,28 @@ void Mesh::genMesh(const vector<vector<QVector3D>>& meshData)
         for (int j = 0; j < 3; ++j) {
             int currentVector = (*i)[j];
             for (int k = 0; k < 3; ++k) {
-                result[currentResult] = positions[currentVector][k];
+                finalVboData[currentResult] = positions[currentVector][k];
                 ++currentResult;
             }
             for (int k = 0; k < 3; ++k) {
-                result[currentResult] = normal[k];
+                finalVboData[currentResult] = normal[k];
                 ++currentResult;
             }
         }
     }
 
-    shader->bind();
-
+    vao = new QOpenGLVertexArrayObject();
+    vao->create();
+    vao->bind();
     vbo = new QOpenGLBuffer();
-    //vbo->create();
-    if(!vbo->create())
-    {
-        qInfo() << "VBO: here it is";
-    }
+    vbo->create();
     vbo->bind();
     vbo->setUsagePattern(QOpenGLBuffer::StaticDraw);
-    vbo->allocate(result, vertexCount * 6 * 4);
-
-    vao = new QOpenGLVertexArrayObject();
-    if(!vao->create())
-    {
-        qInfo() << "VAO: here it is";
-    }
-    vao->bind();
-    shader->enableAttributeArray("position");
-    shader->enableAttributeArray("normal");
-    shader->setAttributeBuffer("position", GL_FLOAT, 0, 3, 6 * 4);
-    shader->setAttributeBuffer("normal", GL_FLOAT, 3 * 4, 3, 6 * 4);
-
-    vao->release();
+    vbo->allocate(finalVboData, vertexCount * 6 * 4);
+    gl->glEnableVertexAttribArray(1);
+    gl->glEnableVertexAttribArray(2);
+    gl->glVertexAttribPointer(1, 3, GL_FLOAT, false, 6*4, 0);
+    gl->glVertexAttribPointer(2, 3, GL_FLOAT, false, 6*4, (void*)(3*4));
     vbo->release();
-    shader->release();
+    vao->release();
 }

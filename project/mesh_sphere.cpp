@@ -11,7 +11,7 @@ QOpenGLBuffer* Mesh_Sphere::sphereVbo = NULL;
 QOpenGLVertexArrayObject* Mesh_Sphere::sphereVao = NULL;
 int Mesh_Sphere::sphereVertexCount = 0;
 
-Mesh_Sphere::Mesh_Sphere(QOpenGLShaderProgram* shader) : Mesh(shader)
+Mesh_Sphere::Mesh_Sphere()
 {
     if (Mesh_Sphere::sphereVbo == 0)
     {

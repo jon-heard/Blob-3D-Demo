@@ -8,13 +8,14 @@
 class QOpenGLShaderProgram;
 class QOpenGLBuffer;
 class QOpenGLVertexArrayObject;
+class QOpenGLFunctions;
 
 class Mesh
 {
 public:
-    Mesh(QOpenGLShaderProgram* shader);
+    Mesh();
     virtual ~Mesh();
-    void draw();
+    void draw(QOpenGLShaderProgram *shader);
 
     float scale() const;
     virtual void setScale(float value);
@@ -22,16 +23,14 @@ public:
     virtual void setPosition(QVector3D value);
 protected:
     void genMesh(const std::vector<std::vector<QVector3D>>& meshData);
-
-    QOpenGLShaderProgram* shader;
     QOpenGLBuffer* vbo;
     QOpenGLVertexArrayObject* vao;
-
     int vertexCount;
-
     QMatrix4x4 modelTransform;
     float _scale;
     QVector3D _position;
+private:
+    static QOpenGLFunctions* gl;
 };
 
 #endif // MESH_H
