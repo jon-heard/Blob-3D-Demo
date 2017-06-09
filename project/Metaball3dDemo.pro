@@ -32,7 +32,8 @@ SOURCES += \
     mesh_marchingcubes.cpp \
     mesh_sphere.cpp \
     metaballScene.cpp \
-    mesh_metaballs.cpp
+    mesh_metaballs.cpp \
+    algorithm_marchingcubes_calccubemesh.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -41,7 +42,8 @@ HEADERS += \
     mesh_marchingcubes.h \
     mesh_sphere.h \
     metaballScene.h \
-    mesh_metaballs.h
+    mesh_metaballs.h \
+    algorithm_marchingcubes_calccubemesh.h
 
 FORMS += \
         mainwindow.ui \

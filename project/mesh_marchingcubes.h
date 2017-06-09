@@ -26,15 +26,14 @@ public:
 class Mesh_MarchingCubes : public Mesh
 {
 public:
-    Mesh_MarchingCubes();
     virtual ~Mesh_MarchingCubes();
     bool dirty() const;
     void setDirty(bool value);
 
+    void genMesh_BoundingBox(Mesh_MarchingCubesParameters* parameters);
     void genMesh_MarchingCubes(Mesh_MarchingCubesParameters* parameters);
 private:
     void addVectorsToMesh(QVector3D offset, std::vector<QVector3D> vertices, std::vector<QVector3D>& positions, std::vector<QVector3D>& tris);
-    std::vector<QVector3D> calcCubeMesh(std::vector<QVector3D> hits);
     bool _dirty;
 };
 

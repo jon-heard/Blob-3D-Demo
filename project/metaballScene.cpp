@@ -9,9 +9,11 @@
 
 using namespace std;
 
-MetaballScene::MetaballScene(QWidget *parent)
-    : QOpenGLWidget(parent),
-      _isRenderingMetaballs(false), zoom(-5) {}
+MetaballScene::MetaballScene(QWidget *parent) :
+    QOpenGLWidget(parent),
+    _isRenderingMetaballs(false),
+    zoom(-5)
+{}
 
 MetaballScene::~MetaballScene()
 {
