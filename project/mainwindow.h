@@ -21,6 +21,7 @@ private slots:
     void removeSphere();
     void toggleIsRenderingMetaballs();
     void modifySphere(const QModelIndex &index);
+    void sphereSelected();
 private:
     Ui::MainWindow *ui;
 

@@ -67,13 +67,15 @@ void MetaballScene::initializeGL()
     shader_basic->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/vertex_basic.vert");
     shader_basic->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/frag_basic.frag");
     shader_basic->link();
+    shader_selected = new QOpenGLShaderProgram();
+    shader_selected->addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/vertex_basic.vert");
+    shader_selected->addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/frag_selected.frag");
+    shader_selected->link();
 
-    shader_basic->bind();
+    Mesh_Sphere* sphere = new Mesh_Sphere(); // create dummy sphere, just to initialize the shared mesh
+    delete sphere;
     metaballs = new Mesh_Metaballs();
     metaballs->setList(_list);
-    Mesh_Sphere* sphere = new Mesh_Sphere();
-    delete sphere;
-    shader_basic->release();
 }
 
 void MetaballScene::paintGL()
@@ -90,19 +92,28 @@ void MetaballScene::paintGL()
 
     if (_list != NULL)
     {
-        shader_basic->bind();
-        shader_basic->setUniformValue("projectionTransform", projectionTransform);
-        shader_basic->setUniformValue("sceneTransform", sceneTransform);
         if (_isRenderingMetaballs)
         {
+            shader_basic->bind();
+            shader_basic->setUniformValue("projectionTransform", projectionTransform);
+            shader_basic->setUniformValue("sceneTransform", sceneTransform);
             metaballs->draw(shader_basic);
+            shader_basic->release();
         } else {
             for (int i = 0; i < _list->count(); ++i)
             {
-                ((Mesh_Sphere*)_list->item(i))->draw(shader_basic);
+                Mesh_Sphere* sphere = (Mesh_Sphere*)_list->item(i);
+                QOpenGLShaderProgram* shader = shader_basic;
+                if (_list->selectedItems().size() && sphere == _list->selectedItems()[0]) {
+                    shader = shader_selected;
+                }
+                shader->bind();
+                shader->setUniformValue("projectionTransform", projectionTransform);
+                shader->setUniformValue("sceneTransform", sceneTransform);
+                sphere->draw(shader);
+                shader->release();
             }
         }
-        shader_basic->release();
     }
 }
 

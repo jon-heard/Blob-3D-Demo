@@ -6,4 +6,3 @@ get voltage working
  polish
 --------
 put back face culling back in
-divorce shader from mesh

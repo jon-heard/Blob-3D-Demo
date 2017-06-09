@@ -46,6 +46,7 @@ private:
 
     // Shaders
     QOpenGLShaderProgram* shader_basic;
+    QOpenGLShaderProgram* shader_selected;
 
     // UI
     QListWidget* _list;

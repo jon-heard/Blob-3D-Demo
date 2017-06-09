@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->findChild<QPushButton*>("removeSphere"), SIGNAL (released()), this, SLOT (removeSphere()));
     connect(_toggleIsRenderingMetaballs, SIGNAL (released()), this, SLOT (toggleIsRenderingMetaballs()));
     connect(list, SIGNAL (doubleClicked(const QModelIndex&)), this, SLOT (modifySphere(const QModelIndex&)));
+    connect(list, SIGNAL (itemSelectionChanged()), this, SLOT(sphereSelected()));
 }
 
 MainWindow::~MainWindow()
@@ -61,5 +62,10 @@ void MainWindow::modifySphere(const QModelIndex &index)
         selected->setScale(dlg.scale());
     }
     scene->updateMetaballMesh();
+    scene->repaint();
+}
+
+void MainWindow::sphereSelected()
+{
     scene->repaint();
 }

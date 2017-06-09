@@ -2,5 +2,6 @@
     <qresource prefix="/shaders">
         <file>frag_basic.frag</file>
         <file>vertex_basic.vert</file>
+        <file>frag_selected.frag</file>
     </qresource>
 </RCC>
